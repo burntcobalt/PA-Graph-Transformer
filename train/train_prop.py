@@ -167,8 +167,10 @@ def run_epoch(data_loader, model, optimizer, stat_names, args, mode,
             all_pred_logits.append(pred_logits)
             all_labels.append(labels)
 
-        if args.loss_type == 'mse' or args.loss_type == 'mae':
+        if args.loss_type == 'mse':
             loss = nn.MSELoss()(input=pred_logits, target=labels)
+        elif args.loss_type == 'mae':
+            loss = nn.L1Loss()(input=pred_logits, target=labels)
         elif args.loss_type == 'ce':
             pred_probs = nn.Sigmoid()(pred_logits)
             loss = nn.BCELoss()(pred_probs, labels)
