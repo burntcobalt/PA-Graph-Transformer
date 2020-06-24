@@ -102,7 +102,10 @@ def test_model(dataset_loaders, model, stat_names, train_func, args,
                inference_func=None):
     test_model_path = args.test_model
     print('Testing model loaded from %s' % test_model_path)
-    model.load_state_dict(torch.load(test_model_path))
+    if args.cuda:
+        model.load_state_dict(torch.load(test_model_path))
+    else:
+        model.load_state_dict(torch.load(test_model_path, map_location='cpu'))
 
     with torch.no_grad():
         test_stats = train_func(

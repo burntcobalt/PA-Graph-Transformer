@@ -56,7 +56,8 @@ def main():
             indices = [str(x) for x in indices]
 
             split_str = ','.join(indices)
-            output_file.write(data_type + ',' + split_str + '\n')
+            if indices:
+                output_file.write(data_type + ',' + split_str + '\n')
         output_file.close()
 
 
